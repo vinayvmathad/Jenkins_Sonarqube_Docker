@@ -29,8 +29,66 @@ Ensure you have the following installed:
 
 ## Getting Started
 
-### Clone the Repository
+### Create Ec2 instance 
+* Create AWS EC2 instance
+### Make changes for inbound traffic on Ec2
+* Go to Ec2 instance and click on Security groups.
+* Add inbound traffic as ALL traffic and save it.
+* Add inbound traffic as ALL traffic for port 8000 and save it.
+* Add inbound traffic as ALL traffic for port 8080 and save it.
+### Install jenkins
 
 ```bash
-git clone https://github.com/vinayvmathad/nodejs_todo_list-jenkins_integration.git
-cd nodejs_todo_list-jenkins_integration
+sudo apt update
+sudo apt install fontconfig openjdk-17-jre
+java -version
+```
+```bash
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+```
+```bash
+ sudo systemctl enable jenkins
+ sudo systemctl start jenkins
+ sudo systemctl status jenkins
+```
+* Initial password will store in this path.
+```bash
+ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+* After setting up jenkins install Github integration plugin.
+* Install the Github integration plugin in Jenkins:
+* Log in to Jenkins.
+* Go to Manage Jenkins > Manage Plugins.
+* In the Available tab, search for "Github integration".
+* Select the plugin and click the Install button.
+* Restart Jenkins after the plugin is installed.
+#### Integrating Jenkins with Github 
+* Create new project in jenkins.
+* Give the details of the github repository.
+* Create a webhook in github so that github can communicate with jenkins.
+* Add these commands in  Execute shell.
+```bash
+sudo apt install nodejs
+sudo apt install npm
+npm install
+node app.js
+```
+#### Install docker 
+```bash
+sudo apt install docker.io
+sudo usermod -a -G docker $USER
+```
+* Create a dockerfile
+* Add this in Execute shell
+```bash 
+docker build . -t node-app-todo
+docker run -d --name node-app-container -p 8000:8000 node-app-todo
+```
+* Now build the Jenkins project it should deploy the Todo-list application on
+* http://[IPv4 address of Ec2 instance]:8000

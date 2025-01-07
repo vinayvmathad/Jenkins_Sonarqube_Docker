@@ -92,3 +92,5 @@ docker run -d --name node-app-container -p 8000:8000 node-app-todo
 ```
 * Now build the Jenkins project it should deploy the Todo-list application on
 * http://[IPv4 address of Ec2 instance]:8000
+#### Install SonarQube to check code quality
+

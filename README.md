@@ -76,7 +76,7 @@ sudo apt-get install jenkins
 ```bash
 sudo apt install nodejs
 sudo apt install npm
-npm install
+sudo npm install
 node app.js
 ```
 #### Install docker 
